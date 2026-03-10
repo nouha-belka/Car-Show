@@ -35,7 +35,7 @@ public class CarServiceImpl implements CarService {
     public CarResponse getCarById(long id) {
         return CarMapper.toDto(
             CarRepository.findById(id).orElseThrow(
-                () -> new InvalidCarIdException("Ivalid Car ID :" +id)
+                () -> new InvalidCarIdException("Car id" + id + "not found !")
             )
         );
     }
@@ -59,13 +59,21 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarResponse updateCarInformation(CarRequest car) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public CarResponse updateCarInformation(CarRequest carRequest) {
+        Car newCarInfo = CarMapper.fromDto(carRequest);
+        if(CarRepository.existsById(newCarInfo.getCarId())){
+            return CarMapper.toDto(CarRepository.save(newCarInfo));
+        }
+
+        return null;
     }
 
     @Override
     public void deleteCarById(long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if( !CarRepository.existsById(id)){
+            throw new InvalidCarIdException("Car id" + id + "not found !");
+        }
+        CarRepository.deleteById(id);
     }
     
 }
