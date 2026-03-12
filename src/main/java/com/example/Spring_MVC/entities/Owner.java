@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class Owner {
     private Gender gender;
     private LocalDate dateOfBirth;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="owner")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="owner", cascade = CascadeType.ALL)
     private List<Car> cars;
     
     

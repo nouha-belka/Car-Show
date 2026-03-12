@@ -3,24 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <title>Car Show | Car Form</title>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input.error, select.error {
+            border-color: red;
+            background-color: #ffe6e6;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+    <h1>Create New Car</h1>
+    
     <form th:action="@{/car/create}" th:object="${newCar}" method="post">
         <input type="hidden" name="id" id="id" th:field="*{carId}">
-        <label for="make">Make: </label><input type="text" name="make" id="make" th:field="*{make}" placeholder="Please enter a Make">
-        <input type="text" name="model" id="model" th:field="*{model}" placeholder="Please enter a Model">
-        <select name="engineType" id="engineType" th:field="*{engineType}">
-            <option value="V6_ENGINE">V6 Engine</option>
-            <option value="V8_ENGINE">V8 Engine</option>
-        </select>
-        <select name="vehicleType" id="vehicleType" th:field="*{vehicleType}">
-            <option value="SUDAN">Sudan</option>
-            <option value="TRUCK">Truck</option>
-            <option value="SUV">SUV</option>
-            <option value="RV">RV</option>
-        </select>
-        <input type="number" name="doorCount" id="doorCount" th:field="*{doorCount}">
-        <input type="submit" value="Submit">
+        
+        <!-- Make Field -->
+        <div class="form-group">
+            <label for="make">Car Make:</label>
+            <input type="text" name="make" id="make" th:field="*{make}" 
+                   placeholder="Enter manufacturer (e.g., Toyota, Honda, Ford)"
+                   th:classappend="${#fields.hasErrors('make') ? 'error' : ''}">
+            <span class="error-message" th:if="${#fields.hasErrors('make')}" th:errors="*{make}"></span>
+        </div>
+        
+        <!-- Model Field -->
+        <div class="form-group">
+            <label for="model">Car Model:</label>
+            <input type="text" name="model" id="model" th:field="*{model}" 
+                   placeholder="Enter model (e.g., Civic, Accord, F-150)"
+                   th:classappend="${#fields.hasErrors('model') ? 'error' : ''}">
+            <span class="error-message" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+        </div>
+        
+        <!-- Engine Type Field -->
+        <div class="form-group">
+            <label for="engineType">Engine Type:</label>
+            <select name="engineType" id="engineType" th:field="*{engineType}" 
+                    th:classappend="${#fields.hasErrors('engineType') ? 'error' : ''}">
+                <option value="">-- Select Engine Type --</option>
+                <option th:each="engine : ${engineTypes}" th:value="${engine.name()}" th:text="${engine.name() == 'V6_ENGINE' ? 'V6 Engine' : engine.name() == 'V8_ENGINE' ? 'V8 Engine' : engine.name()}"></option>
+            </select>
+            <span class="error-message" th:if="${#fields.hasErrors('engineType')}" th:errors="*{engineType}"></span>
+        </div>
+        
+        <!-- Vehicle Type Field -->
+        <div class="form-group">
+            <label for="vehicleType">Vehicle Type:</label>
+            <select name="vehicleType" id="vehicleType" th:field="*{vehicleType}" 
+                    th:classappend="${#fields.hasErrors('vehicleType') ? 'error' : ''}">
+                <option value="">-- Select Vehicle Type --</option>
+                <option th:each="vehicle : ${vehicleTypes}" th:value="${vehicle.name()}" th:text="${vehicle.getName()}"></option>
+            </select>
+            <span class="error-message" th:if="${#fields.hasErrors('vehicleType')}" th:errors="*{vehicleType}"></span>
+        </div>
+        
+        <!-- Door Count Field -->
+        <div class="form-group">
+            <label for="doorCount">Number of Doors:</label>
+            <input type="number" name="doorCount" id="doorCount" th:field="*{doorCount}" 
+                   min="1" max="10"
+                   th:classappend="${#fields.hasErrors('doorCount') ? 'error' : ''}">
+            <span class="error-message" th:if="${#fields.hasErrors('doorCount')}" th:errors="*{doorCount}"></span>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit">Create Car</button>
     </form>
+    
+    <hr>
+    <a th:href="@{/car}">Back to Cars List</a>
 </body>
 </html>

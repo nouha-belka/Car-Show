@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Show | Car Index</title>
+    <title>Car Show | Owner Index</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background: #f4f4f4;
         }
-        .car-list {
+        .owner-list {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
         }
-        .car-entry {
+        .owner-entry {
             background: #fff;
             border: 1px solid #ddd;
             padding: 15px;
@@ -24,11 +24,11 @@
             width: calc(33.333% - 10px);
             box-sizing: border-box;
         }
-        .car-entry h3 {
+        .owner-entry h3 {
             margin: 0 0 5px 0;
             font-size: 1.2em;
         }
-        .car-entry h5, .car-entry h6 {
+        .owner-entry h5, .owner-entry h6 {
             margin: 2px 0;
             color: #555;
         }
@@ -59,18 +59,17 @@
     </style>
 </head>
 <body>
-    <h1>Car Show | Cars</h1>
-    <a href="/car/create" class="create-link">Create New Car</a>
+    <h1>Car Show | Owners</h1>
+    <a href="/owner/create" class="create-link">Create New Owner</a>
     
-    <div class="car-list" th:object="${listOfCars}">
-        <div th:each="car : ${listOfCars}" class="car-entry">
-            <h3 th:text="|${car.make()} ${car.model()}|"></h3>
-            <h5 th:text="|Door Count ${car.doorCount()}|"></h5>
-            <h5 th:text="|Engine Type ${car.engineType()}|"></h5>
-            <h6 th:text="|Vehicle Type ${car.vehicleType()}|"></h6>
-            <form th:action="@{/car/delete}" method="post" style="display:inline">
-                <input type="hidden" name="carId" th:value="${car.carId()}" />
-                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this car?');">Delete</button>
+    <div class="owner-list" th:object="${listOfOwners}">
+        <div th:each="owner : ${listOfOwners}" class="owner-entry">
+            <h3 th:text="|${owner.firstName()} ${owner.lastName()}|"></h3>
+            <h5 th:text="|Gender: ${owner.gender()}|"></h5>
+            <h6 th:text="|Date of Birth: ${owner.dateOfBirth()}|"></h6>
+            <form th:action="@{/owner/delete}" method="post" style="display:inline">
+                <input type="hidden" name="ownerId" th:value="${owner.ownerId()}" />
+                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this owner?');">Delete</button>
             </form>
         </div>
 

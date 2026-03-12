@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Show | Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .success-container {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .success-container h1 {
+            margin-top: 0;
+        }
+        a {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <h1>Owner Created Successfully!</h1>
+        <p>The owner has been added to the system.</p>
+    </div>
+    
+    <br>
+    <a th:href="@{/owner}">Back to Owners List</a>
+</body>
+</html>
