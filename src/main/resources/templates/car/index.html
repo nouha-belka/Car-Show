@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Car Show | Car Index</title>
 </head>
 <body>
-    car index
+    <div th:object="${listOfCars}">
+        <div th:each="car : ${listOfCars}">
+            <h3 th:text="|${car.make()} ${car.model()}|"></h3>
+            <h5 th:text="|Door Count ${car.doorCount()}|"></h5>
+            <h5 th:text="|Engine Type ${car.engineType()}|"></h5>
+            <h6 th:text="|Vehicle Type ${car.vehicleType()}|"></h6>
+        </div>
+
+    </div>
 </body>
 </html>
