@@ -5,7 +5,7 @@
     <title>Car Show | Car Form</title>
 </head>
 <body>
-    <form th:object="${newCar}">
+    <form th:action="@{/car/create}" th:object="${newCar}" method="post">
         <input type="hidden" name="id" id="id" th:field="*{carId}">
         <label for="make">Make: </label><input type="text" name="make" id="make" th:field="*{make}" placeholder="Please enter a Make">
         <input type="text" name="model" id="model" th:field="*{model}" placeholder="Please enter a Model">
