@@ -32,7 +32,7 @@ import lombok.ToString;
 public class UserCredentials implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
     private String email;
     private String password;
     private String role;
